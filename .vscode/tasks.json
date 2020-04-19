@@ -1,0 +1,74 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "install-build-tools",
+      "type": "shell",
+      "command": "cd build\\ && pwsh install.ps1",
+      "problemMatcher": []
+    },
+    {
+      "label": "install",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "-v",
+        "${workspaceFolder}:/home/src",
+        "-t",
+        "nikaburu.github.io/build-tools",
+        "yarn",
+        "install"
+      ],
+      "dependsOn": ["install-build-tools"],
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "-v",
+        "${workspaceFolder}:/home/src",
+        "-t",
+        "nikaburu.github.io/build-tools",
+        "yarn",
+        "run",
+        "build"
+      ],
+      "dependsOn": ["install-build-tools"],
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "develop",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "-p",
+        "8000:8000",
+        "-v",
+        "${workspaceFolder}:/home/src",
+        "-t",
+        "nikaburu.github.io/build-tools",
+        "yarn",
+        "run",
+        "develop"
+      ],
+      "dependsOn": ["install-build-tools"],
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}
