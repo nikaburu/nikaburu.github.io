@@ -1,0 +1,8 @@
+{
+    "name": "@nikaburu/blog",
+    "scripts": {
+        "tools": "docker run --rm -i -v %cd%:/home/src -t nikaburu.github.io/tools",
+        "gatsby": "yarn tools gatsby",
+        "develop": "yarn run gatsby develop -H 0.0.0.0"
+    }
+}
